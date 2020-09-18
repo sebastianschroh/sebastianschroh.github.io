@@ -1,21 +1,47 @@
 h1 {
     font-family: 'Zilla Slab', serif;
     font-size: 10vh;
-    text-align: center;
+}
+
+h2 {
+    font-family: 'Zilla Slab', serif;
+    font-size: 3vh;
+}
+
+.top-left-site-link {
+    position: absolute;
+    top: 1vh;
+    left: 1vw;
+}
+
+.top-left-site-link a {
+    text-decoration: none;
+    color: inherit;
 }
 
 p, ul {
     font-family: 'Zilla Slab', serif;
     font-weight: 300;
+    font-size: 2.5vh;
 }
 
-.bg-title {
-    background-image: url("../images/title-screen-image-music.jpg");
+.bg {
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
     background-position: top;
     padding: 0;
     margin: 0;
+}
+
+.bg-title {
+    background-image: url("../images/title-screen-image-music.jpg");
+}
+
+.intro-section{
+    position: absolute;
+    left: 46vw;
+    top: 12vw;
+    text-align: left;
 }
 
 main{
@@ -31,11 +57,16 @@ h1 a {
 
 .title-font{
     color: black;
+    text-align: left;
+    margin-top: 1vh;
+    margin-left: 2vw;
 }
 
 nav {
     position:fixed;
-    bottom: 0;  
+    bottom: 0; 
+    margin: 0;
+    height: 40vh;
 }
 
 nav ul {
@@ -44,19 +75,280 @@ nav ul {
     padding: 0;
     border: 0;
     text-align: left;
-    font-size: 0;
 }
 
 nav li {
     display: inline;
 }
 
-
-nav img {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    width: 20vw;
+.image-text-container img {
+    display: block;
+    width: 20.02vw;
     object-fit: cover;
     height: 40vh;
 }
+
+.image-text-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin-right: -4px;
+    margin-bottom: -4px;
+}
+
+.image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 2.3vh;
+}
+
+.image-text-container .image-text-overlay{
+    position: absolute;
+    bottom: 0px;
+    background: rgba(0,0,0,.8);
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+    opacity: 0;
+}
+
+.image-text-container:hover .image-text-overlay {
+    bottom: 10px;
+    opacity: 1;
+}
+
+.image-text-container:hover .image-text-overlay:hover {
+    bottom: 0;
+}
+
+.album-and-tracklist {
+    position: absolute;
+    right: 1vh;
+    top: 30vh;
+    width: 40vh;
+    height: 70vh;
+}
+
+.album-and-tracklist table{
+    margin:0;
+    padding:0;
+    width: inherit;
+}
+
+/*
+the weyes blood portion of the site
+*/
+
+
+.title-card-weyesblood {
+    text-align: right;
+}
+
+
+.text-weyesblood {
+    color: #F2B694;
+}
+
+
+.subtitle-weyesblood {
+    padding: 0;
+    margin: 0;
+    margin-right: 1vh;
+}
+.title-weyesblood {
+    padding: 0;
+    margin: 0;
+    margin-top: 10vh;
+    margin-right: 2vh;
+}
+
+.bg-weyesblood {
+    background-color:  rgba(51, 101, 166, 1);
+}
+
+.img-weyesblood-album-cover {
+    width: inherit;
+    margin: 0;
+    margin-bottom: -4px;
+    padding: 0;
+}
+
+.table-weyesblood {
+    background-color: #825791;
+    border-collapse: collapse;
+
+}
+.table-weyesblood tr:hover{
+    background-color: #9C71AB;
+}
+
+.table-weyesblood th, td{
+    font-family: 'Zilla Slab', serif;
+    color: #590F1D;
+    text-align: left;
+    padding: 2px;
+}
+
+/*
+the death grips portion of the site
+*/
+
+.title-card-deathgrips {
+    text-align: right;
+}
+
+
+.text-deathgrips {
+    color: #0D0D0D;
+}
+
+
+.subtitle-deathgrips {
+    padding: 0;
+    margin: 0;
+    margin-right: 1vh;
+}
+.title-deathgrips {
+    padding: 0;
+    margin: 0;
+    margin-top: 10vh;
+    margin-right: 2vh;
+}
+
+.bg-deathgrips {
+    background-color:  #A6A15D;
+}
+
+.img-deathgrips-album-cover {
+    width: inherit;
+    margin: 0;
+    margin-bottom: -4px;
+    padding: 0;
+}
+
+.table-deathgrips {
+    background-color: #735340;
+    border-collapse: collapse;
+
+}
+.table-deathgrips tr:hover{
+    background-color: #8D6D5A;
+}
+
+.table-deathgrips th, td{
+    font-family: 'Zilla Slab', serif;
+    color: #BFB895;
+    text-align: left;
+    padding: 2px;
+}
+
+/*
+the kendrick lamar portion of the site
+*/
+.title-card-kendricklamar {
+    text-align: right;
+}
+
+.text-kendricklamar {
+    color: #403C3B;
+}
+
+
+.subtitle-kendricklamar {
+    padding: 0;
+    margin: 0;
+    margin-right: 1vh;
+}
+.title-kendricklamar {
+    padding: 0;
+    margin: 0;
+    margin-top: 10vh;
+    margin-right: 2vh;
+}
+
+.bg-kendricklamar {
+    background-color:  #A6A6A6;
+}
+
+.img-kendricklamar-album-cover {
+    width: inherit;
+    margin: 0;
+    margin-bottom: -4px;
+    padding: 0;
+}
+
+.table-kendricklamar {
+    background-color: #262323;
+    border-collapse: collapse;
+
+}
+.table-kendricklamar tr:hover{
+    background-color: #403D3D;
+}
+
+.table-kendricklamar th, td{
+    font-family: 'Zilla Slab', serif;
+    color: #BFBFBF;
+    text-align: left;
+    padding: 2px;
+}
+
+/*
+the frank ocean portion of the site
+*/
+.title-card-frankocean {
+    text-align: right;
+}
+
+.text-frankocean {
+    color: #455936;
+}
+
+
+.subtitle-frankocean {
+    padding: 0;
+    margin: 0;
+    margin-right: 1vh;
+}
+.title-frankocean {
+    padding: 0;
+    margin: 0;
+    margin-top: 10vh;
+    margin-right: 2vh;
+}
+
+.bg-frankocean {
+    background-color:  #D9D9D9;
+}
+
+.img-frankocean-album-cover {
+    width: inherit;
+    margin: 0;
+    margin-bottom: -4px;
+    padding: 0;
+}
+
+.table-frankocean {
+    background-color: #FFFFFF;
+    border-collapse: collapse;
+
+}
+.table-frankocean tr:hover{
+    background-color: #CCCCCC;
+}
+
+.table-frankocean th, td{
+    font-family: 'Zilla Slab', serif;
+    color: #455936;
+    text-align: left;
+    padding: 2px;
+}
+
