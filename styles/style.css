@@ -27,20 +27,15 @@ p, ul {
 
 .bg {
     background-size: 100vw 100vh;
-    background-repeat: no-repeat;
-    background-position: top;
-    padding: 0;
-    margin: 0;
 }
 
 .bg-title {
-    background-image: url("../images/title-screen-image-music.jpg");
+    background-image: linear-gradient(grey, lightgrey);;
 }
 
 .intro-section{
-    position: absolute;
-    left: 46vw;
-    top: 12vw;
+    margin-top: 0;
+    margin-left: 40vw;
     text-align: left;
 }
 
@@ -55,35 +50,29 @@ h1 a {
     text-decoration: none;
 }
 
+.album-bar a{
+    text-decoration: none;
+    font-size: 0;
+}
+
 .title-font{
     color: black;
     text-align: left;
     margin-top: 1vh;
     margin-left: 2vw;
+    margin-bottom: 0;
 }
 
-nav {
-    position:fixed;
-    bottom: 0; 
-    margin: 0;
-    height: 40vh;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
+.image-bar{
+    margin-top: 0;
     padding: 0;
-    border: 0;
-    text-align: left;
+    margin-bottom:0;
 }
 
-nav li {
-    display: inline;
-}
 
 .image-text-container img {
     display: block;
-    width: 20.02vw;
+    width: 19.6vw;
     object-fit: cover;
     height: 40vh;
 }
@@ -91,9 +80,9 @@ nav li {
 .image-text-container {
     position: relative;
     display: inline-block;
+    object-fit: cover;
     overflow: hidden;
-    margin-right: -4px;
-    margin-bottom: -4px;
+
 }
 
 .image-text {
