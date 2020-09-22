@@ -25,12 +25,19 @@ p, ul {
     font-size: 2.5vh;
 }
 
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
 .bg {
-    background-size: 100vw 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .bg-title {
-    background-image: linear-gradient(grey, lightgrey);;
+    background-color: grey;
+    background-size: 100vw 100vh;
 }
 
 .intro-section{
@@ -40,7 +47,6 @@ p, ul {
 }
 
 main{
-    text-align: center;
     padding: 0;
     margin: 0;
 }
@@ -53,6 +59,8 @@ h1 a {
 .album-bar a{
     text-decoration: none;
     font-size: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .title-font{
@@ -63,18 +71,19 @@ h1 a {
     margin-bottom: 0;
 }
 
-.image-bar{
-    margin-top: 0;
+.album-bar{
+    width: 100%;
+    margin: 0;
     padding: 0;
-    margin-bottom:0;
 }
 
 
 .image-text-container img {
-    display: block;
-    width: 19.6vw;
+    display: inline-block;
+    width: 19vw;
     object-fit: cover;
     height: 40vh;
+
 }
 
 .image-text-container {
@@ -82,7 +91,6 @@ h1 a {
     display: inline-block;
     object-fit: cover;
     overflow: hidden;
-
 }
 
 .image-text {
