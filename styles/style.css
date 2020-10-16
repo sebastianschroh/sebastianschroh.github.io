@@ -1,3 +1,42 @@
+
+/* main site styling*/
+
+.main-title-font{
+    color: white;
+    text-align: center;
+    margin-top: 1vh;
+    margin-left: 2vw;
+    margin-bottom: 0;
+}
+.main-title-font:hover{
+    color: pink;
+    transition: color 0.3s ease-in-out;
+}
+.main-bg {
+    background-image: linear-gradient(#3E3535, #595959);
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+}
+.big-list {
+    list-style-type: none;
+}
+.big-list-item{
+    margin: 10vh;
+}
+
+.big-list-item a{
+    text-decoration: none;
+    color: white;
+    font-size: 5vh;
+    background: none;
+}
+
+.big-list-item a:hover {
+    color: orange;
+    transition: color 0.3s ease-in-out;
+}
+
+/* fav album styling*/
 h1 {
     font-family: 'Zilla Slab', serif;
     font-size: 10vh;
@@ -22,6 +61,8 @@ main{
     margin-right:0;
     margin-bottom: 0;
 }
+
+
 
 h1 a{
     color: inherit;
