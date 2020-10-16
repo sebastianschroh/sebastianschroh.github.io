@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html>
-<title>Minemopper 💣</title>
+
 <head>
-    <!-- the google api that gives us the font "Zilla Slab" which would be a sick band name-->
-    <!-- source for the guitar image https://www.pexels.com/photo/audio-e-guitars-guitars-music-6966/ -->
-    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="styles/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Minemopper 💣</title>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap" rel="stylesheet"> 
+  <link href="styles/minemopper.css" rel="stylesheet" type="text/css" />
 </head>
-<body class="bg main-bg">
-<div>
-    <main>
-        <h1 class="main-title-font"> <a href="minemopper.html">Minemopper</a> </h1>
-    </main>
-</div>
+
+<body>
+  <div>
+    <h1>Minemopper 💣🧹</h1>
+  </div>
+  <div class="menu">
+    <div class="menuButton" data-difficulty="easy"></div>       <!-- 10 x 10 -->
+    <div class="menuButton" data-difficulty="medium"></div>     <!-- 18 x 18 -->
+    <div class="menuButton" data-difficulty="hard"></div>       <!-- 24 x 24 -->
+  </div>
+  <div class="gridwrapper">
+    <div class="grid"></div>
+  </div>
+  <div class="status">
+    Number of mines: <span class="mineCount">0</span> Time: <span class="time">0</span>
+  </div>
+  <div id="overlay">
+    <div id="overlayin">
+      <p class="big glow">Congratulations, you won!!!</p>
+      <p class="darker">It took you <span class="mineCount">0</span> moves.</p>
+      <p class="darker">Click anywhere to start a new game.
+    </div>
+  </div>
+  <script src="js/minemopper.js"></script>
 </body>
+
 </html>
