@@ -3,15 +3,22 @@
 const DIFFICULTIES = [
 {
   difficulty: "EASY",
-  rowCol: 10
+  row: 8,
+  col: 10,
+  
+  mines: 10
 },
 {
  difficulty: "MEDIUM",
- rowCol: 18
+ row: 14,
+ col: 18,
+ mines: 40
 },
 {
   difficulty: "HARD",
-  rowCol: 24
+  row: 20,
+  col: 24,
+  mines: 99
 }
 
 ];
@@ -19,55 +26,77 @@ const DIFFICULTIES = [
 
 window.addEventListener('load', main);
 
-/**
- * creates enough cards for largest board (9x9)
- * registers callbacks for cards
- * 
- * @param {state} s 
- */
-function prepare_dom(s) {
-    const nCards = 24 * 24; // max grid size
-    for( let i = 0 ; i < nCards ; i ++) {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.setAttribute("data-cardInd", i);
-    card.addEventListener("click", () => {
-        alert('click');
-    });
-    $('.grid').append(card);
-    }
-
-    $('.menuButton').each(function(index){
-      $(this).text(DIFFICULTIES[index].difficulty);
-    });
-}
-
-/**
- * updates DOM to reflect current state
- * - hides unnecessary cards by setting their display: none
- * - adds "flipped" class to cards that were flipped
- * 
- * @param {object} s 
- */
-function render(s) {
+function render(game) {
   const grid = document.querySelector(".grid");
-  grid.style.gridTemplateColumns = `repeat(${s.cols}, 1fr)`;
+  grid.style.gridTemplateColumns = `repeat(${game.ncols}, 1fr)`;
+  console.log(game.getRendering());
   for( let i = 0 ; i < grid.children.length ; i ++) {
     const card = grid.children[i];
     const ind = Number(card.getAttribute("data-cardInd"));
-    if( ind >= s.rows * s.cols) {
+    const col = Math.floor(i%game.ncols);
+    const row = Math.floor(i/game.ncols);
+    if( ind >= game.ncols * game.nrows) {
       card.style.display = "none";
     }
     else {
       card.style.display = "block";
+      let currentState = game.arr[row][col].state;
+      if(currentState == "marked") {
+        card.classList.add("flagged");
+      }
+      if(currentState == "hidden") {
+        if(card.classList.contains("flagged")){
+          card.classList.remove("flagged");
+        }
+      }
+      if(currentState == "shown") {
+        card.classList.add("uncovered");
+      }
+
     }
   }
   document.querySelectorAll(".moveCount").forEach(
     (e)=> {
       e.textContent = String(s.moves);
     });
-}
+};
 
+function prepare_dom(game) {
+  const nCards = 24 * 20; // max grid size
+  for( let i = 0 ; i < nCards ; i ++) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("data-cardInd", i);
+    card.oncontextmenu = function(){return false;}
+    card.addEventListener("mousedown", (event) => {
+      let col = Math.floor(i%game.ncols);
+      let row = Math.floor(i/game.ncols);
+      if(event.buttons == 1)
+      {
+        game.uncover(row, col);
+        render(game);
+      }
+      else if(event.buttons == 2)
+      {
+        event.stopImmediatePropagation();
+        game.mark(row, col);
+        render(game);
+      }
+        
+    });
+    
+    $('.grid').append(card);
+  }
+
+  $('.menuButton').each(function(index){
+    let difficulty = DIFFICULTIES[index];
+    $(this).text(difficulty.difficulty);
+    $(this).on('click', function(){
+        game.init(difficulty.row, difficulty.col, difficulty.mines);
+        render(game);
+    });
+  });
+}
 
 let MSGame = (function(){
 
@@ -92,6 +121,8 @@ let MSGame = (function(){
     [min,max] = [Math.ceil(min), Math.floor(max)]
     return min + Math.floor(Math.random() * (max - min + 1));
   }
+
+  
 
   class _MSGame {
     constructor() {
@@ -250,7 +281,8 @@ let MSGame = (function(){
 
 function main() {
     let game = new MSGame();
-    let status = game.getStatus();
-    prepare_dom(status);
-    render(status);
+    let defaultDifficulty = DIFFICULTIES[0]; //easy
+    game.init(defaultDifficulty.row, defaultDifficulty.col, defaultDifficulty.mines);
+    prepare_dom(game);
+    render(game);
 }

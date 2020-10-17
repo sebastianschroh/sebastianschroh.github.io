@@ -17,6 +17,7 @@
   
   .card {
     background-color: #033F73;
+
     background-repeat: no-repeat;
     background-size: cover;
   
@@ -24,7 +25,7 @@
     height: auto;
   
     border: none;
-    margin: 2px;
+    margin: 1px;
     transition:.25s;
     transform: rotateY(180deg);
   
@@ -36,10 +37,17 @@
     background-color: #0f2c46;
   }
   
-  .card.flipped {
-    background-image: url(on.webp);
-    opacity: 1;
+  .card.uncovered {
+    background-image: url();
     transform: rotateY(0deg);
+  }
+
+  .card.flagged {
+    background-image: url('../images/flag.png');  
+  }
+
+  .card.uncovered {
+    background-color: #3888cf;
   }
   
   .grid {
@@ -48,6 +56,7 @@
     border-radius: 10px;
     padding:5px;
     width: calc(70vh);
+    max-width: 790px;
   }
   
   .grid > div::before {
@@ -189,5 +198,10 @@
     margin-top: 5px;
     text-align: center;
     color:#BF0413;
+  }
+
+  span{
+    padding-right: 10px;
+    padding-left: 10px;
   }
   
