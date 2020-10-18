@@ -26,6 +26,30 @@ const DIFFICULTIES = [
 
 window.addEventListener('load', main);
 
+
+/**
+ * Code to absorb events for long presses on mobile
+ * source: https://stackoverflow.com/questions/3413683/disabling-the-context-menu-on-long-taps-on-android/28748222
+ * @param {*} event 
+ */
+function absorbEvent_(event) {
+  var e = event || window.event;
+  e.preventDefault && e.preventDefault();
+  e.stopPropagation && e.stopPropagation();
+  e.cancelBubble = true;
+  e.returnValue = false;
+  return false;
+
+}
+function preventLongPressMenu(node) {
+  node.ontouchstart = absorbEvent_;
+  node.ontouchmove = absorbEvent_;
+  node.ontouchend = absorbEvent_;
+  node.ontouchcancel = absorbEvent_;
+}
+
+
+
 function render(game) {
   const grid = document.querySelector(".grid");
   grid.style.gridTemplateColumns = `repeat(${game.ncols}, 1fr)`;
@@ -68,6 +92,7 @@ function prepare_dom(game) {
     card.className = "card";
     card.setAttribute("data-cardInd", i);
     card.oncontextmenu = function(){return false;}
+    preventLongPressMenu(card);
     card.addEventListener("mousedown", (event) => {
       let col = Math.floor(i%game.ncols);
       let row = Math.floor(i/game.ncols);
