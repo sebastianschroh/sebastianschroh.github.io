@@ -53,7 +53,8 @@ function preventLongPressMenu(node) {
 function render(game) {
   const grid = document.querySelector(".grid");
   grid.style.gridTemplateColumns = `repeat(${game.ncols}, 1fr)`;
-  console.log(game.getRendering());
+  const rendering = game.getRendering();
+
   for( let i = 0 ; i < grid.children.length ; i ++) {
     const card = grid.children[i];
     const ind = Number(card.getAttribute("data-cardInd"));
@@ -64,25 +65,51 @@ function render(game) {
     }
     else {
       card.style.display = "block";
-      let currentState = game.arr[row][col].state;
-      if(currentState == "marked") {
+      let currentState = rendering[row].charAt(col);
+      if(currentState == "F") {
         card.classList.add("flagged");
       }
-      if(currentState == "hidden") {
-        if(card.classList.contains("flagged")){
-          card.classList.remove("flagged");
-        }
+      else if(currentState == "H") {
+        card.className = 'card';
       }
-      if(currentState == "shown") {
+      else if(currentState == "M") {
         card.classList.add("uncovered");
+        card.classList.add("mine");
+      }
+      else {
+        card.classList.add("uncovered");
+        switch(currentState) {
+          case '0':
+            break;
+          case '1':
+            card.classList.add("oneMine");
+            break;
+          case '2':
+            card.classList.add('twoMine');
+            break;
+          case '3':
+            card.classList.add('threeMine');
+          case '4':
+            card.classList.add('fourMine');
+            break;
+          case '5':
+            card.classList.add('fiveMine');
+            break;
+          case '6':
+            card.classList.add('sixMine');
+            break;
+          case '7':
+            card.classList.add('sevenMine');
+            break;
+          case '8':
+            card.classList.add('eightMine');
+            break;
+          }
       }
 
     }
   }
-  document.querySelectorAll(".moveCount").forEach(
-    (e)=> {
-      e.textContent = String(s.moves);
-    });
+
 };
 
 function prepare_dom(game) {
@@ -93,17 +120,25 @@ function prepare_dom(game) {
     card.setAttribute("data-cardInd", i);
     card.oncontextmenu = function(){return false;}
     preventLongPressMenu(card);
+
+    card.addEventListener("touchdown", ()=> {
+
+    });
+
+    card.addEventListener("touchend", () => {
+
+    });
+
     card.addEventListener("mousedown", (event) => {
       let col = Math.floor(i%game.ncols);
       let row = Math.floor(i/game.ncols);
-      if(event.buttons == 1)
+      if(event.buttons == 1) // left-click
       {
         game.uncover(row, col);
         render(game);
       }
-      else if(event.buttons == 2)
+      else if(event.buttons == 2) // right-click
       {
-        event.stopImmediatePropagation();
         game.mark(row, col);
         render(game);
       }
@@ -119,6 +154,7 @@ function prepare_dom(game) {
     $(this).on('click', function(){
         game.init(difficulty.row, difficulty.col, difficulty.mines);
         render(game);
+        $('.mineCount').text(difficulty.mines);
     });
   });
 }
@@ -308,6 +344,7 @@ function main() {
     let game = new MSGame();
     let defaultDifficulty = DIFFICULTIES[0]; //easy
     game.init(defaultDifficulty.row, defaultDifficulty.col, defaultDifficulty.mines);
+    $('.mineCount').text(defaultDifficulty.mines);
     prepare_dom(game);
     render(game);
 }

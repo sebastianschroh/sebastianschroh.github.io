@@ -38,16 +38,51 @@
   }
   
   .card.uncovered {
-    background-image: url();
     transform: rotateY(0deg);
+    background-color: #0078DF;
+  }
+
+  .card.mine {
+    background-image: url('../images/bomb_emoji.png');
   }
 
   .card.flagged {
-    background-image: url('../images/flag.png');  
+    background-image: url('../images/flag_emoji.png');  
   }
 
-  .card.uncovered {
-    background-color: #3888cf;
+  /*
+  Each class is for one card type
+  */
+  .card.oneMine {
+    background-image: url('../images/one_emoji.png');
+  }
+
+  .card.twoMine {
+    background-image: url('../images/two_emoji.png');
+  }
+
+  .card.threeMine {
+    background-image: url('../images/three_emoji.png');
+  }
+
+  .card.fourMine {
+    background-image: url('../images/four_emoji.png');
+  }
+
+  .card.fiveMine {
+    background-image: url('../images/five_emoji.png');
+  }
+
+  .card.sixMine {
+    background-image: url('../images/six_emoji.png');
+  }
+
+  .card.sevenMine {
+    background-image: url('../images/seven_emoji.png');
+  }
+
+  .card.eightMine {
+    background-image: url('../images/eight_emoji.png');
   }
   
   .grid {
