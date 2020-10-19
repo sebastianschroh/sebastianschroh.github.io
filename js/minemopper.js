@@ -64,15 +64,15 @@ function menuButtonHandler (menuButton, index, game) {
   });
 }
 
-function mouseDownHandler (event, game, row , col) {
+function mouseDownHandler (event, game, i) {
   if(event.buttons == 1) // left-click
   {
-    game.uncover(row, col);
+    game.uncover(i);
     render(game);
   }
   else if(event.buttons == 2) // right-click
   {
-    game.mark(row, col);
+    game.mark(i);
     render(game);
   }
 };
