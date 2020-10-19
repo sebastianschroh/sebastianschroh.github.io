@@ -145,9 +145,9 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
+    background: #82B8D9;
     z-index: 999;
-    opacity: 1;
+    opacity: 0.0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -172,13 +172,13 @@
     padding: 1em;
     padding-left: 4em;
     padding-right: 4em;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #BF0426;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: rgb(255, 255, 255);
+    color: #033F73;
     box-shadow: 0 0 20px black;
   }
   
@@ -195,14 +195,6 @@
     color: #82B8D9;
   }
   
-  p.glow {
-    animation: glow 1s infinite alternate-reverse;
-  }
-  
-  @keyframes glow {
-    from { text-shadow: 0 0 20px rgb(255, 255, 0); }
-    to { text-shadow: 0 0 20px rgb(255, 115, 0); }
-  }
   
   #overlay.active #overlayin {
     opacity: 0;
