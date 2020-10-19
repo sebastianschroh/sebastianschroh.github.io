@@ -48,6 +48,8 @@ function absorbEvent_(event) {
 function preventLongPressMenu(node) {
   node.ontouchmove = absorbEvent_;
   node.ontouchcancel = absorbEvent_;
+  node.ontouchend = absorbEvent_;
+  node.ontouchstart = absorbEvent_;
 }
 
 /** event handlers */
