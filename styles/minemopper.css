@@ -147,16 +147,13 @@
     height: 100vh;
     background: #82B8D9;
     z-index: 999;
-    opacity: 0.0;
+    opacity: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: 0s;
-    transition: all 0s;
   
     visibility: hidden;
-    animation: fadeOut 0.5s;
-    animation-fill-mode: forwards;
+
   }
   #overlay * {
     pointer-events: none;
@@ -164,8 +161,6 @@
   
   #overlay.active {
     visibility: visible;
-    animation: fadeIn 0.5s;
-    animation-fill-mode: forwards;
   }
   
   #overlayin {
@@ -197,29 +192,13 @@
   
   
   #overlay.active #overlayin {
-    opacity: 0;
-    animation: spinIn 1s ease-in-out;
-    animation-fill-mode: forwards;
+    opacity: 1;
   }
   
   #overlayin * {
     margin: 0px;
   }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-  
-  @keyframes spinIn {
-    from { transform: scale(0.1) rotateX(0deg) ; opacity: 0; }
-    to { transform: scale(1) rotateX(360deg) ;  opacity: 1; }
-  }
+
   
   .status {
     margin-top: 5px;
