@@ -149,6 +149,7 @@ function prepare_dom(game) {
     //preventLongPressMenu(card);
 
     card.addEventListener("touchstart", ()=> {
+      alert('yeet');
         _touchTimer = setTimeout(game.mark(i), _longTouchDuration);
     });
 
