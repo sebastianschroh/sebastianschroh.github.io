@@ -58,9 +58,11 @@ function menuButtonHandler (menuButton, index, game) {
   let difficulty = DIFFICULTIES[index];
   $(menuButton).text(difficulty.difficulty);
   $(menuButton).on('click', function(){
-      game.init(difficulty.row, difficulty.col, difficulty.mines);
+      clearInterval(game.timer);
+      game.init(difficulty);
       render(game);
       $('.mineCount').text(difficulty.mines);
+      $('.time').text(0);
   });
 }
 
@@ -78,6 +80,20 @@ function mouseDownHandler (event, game, i) {
 };
 
 function render(game) {
+  let status = game.getStatus();
+
+  if(status.done) {
+    if(status.exploded) {
+      $("#overlay").toggleClass("active");
+      $(".big.glow").text("You blew up on " + game.difficulty.difficulty.toLowerCase() +"!")
+      clearInterval(game.timer);
+    }
+    else {
+      $("#overlay").toggleClass("active");
+      $(".big.glow").text("You won on " + game.difficulty.difficulty.toLowerCase() +"!")
+      clearInterval(game.timer);
+    }
+  }
   const grid = document.querySelector(".grid");
   grid.style.gridTemplateColumns = `repeat(${game.ncols}, 1fr)`;
   const rendering = game.getRendering();
@@ -197,23 +213,26 @@ let MSGame = (function(){
 
   class _MSGame {
     constructor() {
-      this.init(8,10,10); // easy
+      this.init(DIFFICULTIES[0]); // easy
     }
 
     validCoord(row, col) {
       return row >= 0 && row < this.nrows && col >= 0 && col < this.ncols;
     }
 
-    init(nrows, ncols, nmines) {
-      this.nrows = nrows;
-      this.ncols = ncols;
-      this.nmines = nmines;
+    init(difficulty) {
+      this.difficulty = difficulty;
+      this.nrows = difficulty.row;
+      this.ncols = difficulty.col;
+      this.nmines = difficulty.mines;
+      this.timer = null;
+      this.time = 0;
       this.nmarked = 0;
       this.nuncovered = 0;
       this.exploded = false;
       // create an array
       this.arr = array2d(
-        nrows, ncols,
+        this.nrows, this.ncols,
         () => ({mine: false, state: STATE_HIDDEN, count: 0}));
     }
 
@@ -274,9 +293,14 @@ let MSGame = (function(){
       // if coordinates invalid, refuse this request
       if( ! this.validCoord(row,col)) return false;
       // if this is the very first move, populate the mines, but make
-      // sure the current cell does not get a mine
-      if( this.nuncovered === 0)
+      // sure the current cell does not get a mine, and start the timer
+      if( this.nuncovered === 0) {
         this.sprinkleMines(row, col);
+        this.timer = setInterval(()=> {
+          this.time ++;
+          $('.time').text(this.time);
+        }, 1000);
+      }
       // if cell is not hidden, ignore this move
       if( this.arr[row][col].state !== STATE_HIDDEN) return false;
       // floodfill all 0-count cells
@@ -314,6 +338,7 @@ let MSGame = (function(){
         STATE_HIDDEN : STATE_MARKED;
       return true;
     }
+
     // returns array of strings representing the rendering of the board
     //      "H" = hidden cell - no bomb
     //      "F" = hidden cell with a mark / flag
@@ -356,14 +381,20 @@ let MSGame = (function(){
 
 function main() {
     let game = new MSGame();
-    let defaultDifficulty = DIFFICULTIES[0]; //easy
-    game.init(defaultDifficulty.row, defaultDifficulty.col, defaultDifficulty.mines);
 
     $('.menuButton').each(function(index){
       menuButtonHandler(this, index, game);
     });
 
-    $('.mineCount').text(defaultDifficulty.mines);
+    $('.mineCount').text(game.nmines);
     prepare_dom(game);
     render(game);
+
+    $("#overlay").on("click", () => {
+      document.querySelector("#overlay").classList.remove("active");
+      game.init(game.difficulty);
+      $('.time').text(0);
+      render(game);
+    });
+  
 }
