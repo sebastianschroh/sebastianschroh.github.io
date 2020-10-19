@@ -147,7 +147,7 @@ function prepare_dom(game) {
     preventLongPressMenu(card);
 
     card.addEventListener("touchstart", ()=> {
-        _touchTimer = setTimeout(()=>{game.mark(i); _touchTimer= null;}, _longTouchDuration);
+        _touchTimer = setTimeout(()=>{game.mark(i); _touchTimer= null; render(game)}, _longTouchDuration);
     });
 
     card.addEventListener("touchend", () => {
@@ -155,6 +155,7 @@ function prepare_dom(game) {
         clearTimeout(_touchTimer);
         _touchTimer = null;
         game.uncover(i);
+        render(game);
       }
     });
 
