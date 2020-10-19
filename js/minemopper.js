@@ -146,7 +146,7 @@ function prepare_dom(game) {
     card.className = "card";
     card.setAttribute("data-cardInd", i);
     card.oncontextmenu = function(){return false;}
-    //preventLongPressMenu(card);
+    preventLongPressMenu(card);
 
     card.addEventListener("touchstart", ()=> {
         _touchTimer = setTimeout(game.mark(i), _longTouchDuration);
