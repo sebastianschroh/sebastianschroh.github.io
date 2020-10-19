@@ -23,6 +23,10 @@ const DIFFICULTIES = [
 
 ];
 
+// Global Variables
+var _touchTimer;
+var _longTouchDuration = 1000; //ms
+
 
 window.addEventListener('load', main);
 
@@ -121,17 +125,21 @@ function prepare_dom(game) {
     card.oncontextmenu = function(){return false;}
     preventLongPressMenu(card);
 
-    card.addEventListener("touchdown", ()=> {
+    let col = Math.floor(i%game.ncols);
+    let row = Math.floor(i/game.ncols);
 
+    card.addEventListener("touchstart", ()=> {
+        _touchTimer = setTimeout(game.mark(row, col), _longTouchDuration);
     });
 
     card.addEventListener("touchend", () => {
-
+      if(timer) {
+        clearTimeout(timer);
+        game.uncover(row, col);
+      }
     });
 
     card.addEventListener("mousedown", (event) => {
-      let col = Math.floor(i%game.ncols);
-      let row = Math.floor(i/game.ncols);
       if(event.buttons == 1) // left-click
       {
         game.uncover(row, col);
