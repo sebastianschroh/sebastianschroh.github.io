@@ -46,9 +46,7 @@ function absorbEvent_(event) {
 
 }
 function preventLongPressMenu(node) {
-  node.ontouchstart = absorbEvent_;
   node.ontouchmove = absorbEvent_;
-  node.ontouchend = absorbEvent_;
   node.ontouchcancel = absorbEvent_;
 }
 
@@ -149,13 +147,13 @@ function prepare_dom(game) {
     preventLongPressMenu(card);
 
     card.addEventListener("touchstart", ()=> {
-        _touchTimer = setTimeout(game.mark(i), _longTouchDuration);
+        _touchTimer = setTimeout(()=>{game.mark(i); _touchTimer= null;}, _longTouchDuration);
     });
 
     card.addEventListener("touchend", () => {
       if(_touchTimer) {
-        alert(_touchTimer);
         clearTimeout(_touchTimer);
+        _touchTimer = null;
         game.uncover(i);
       }
     });
