@@ -52,7 +52,30 @@ function preventLongPressMenu(node) {
   node.ontouchcancel = absorbEvent_;
 }
 
+/** event handlers */
 
+function menuButtonHandler (menuButton, index, game) {
+  let difficulty = DIFFICULTIES[index];
+  $(menuButton).text(difficulty.difficulty);
+  $(menuButton).on('click', function(){
+      game.init(difficulty.row, difficulty.col, difficulty.mines);
+      render(game);
+      $('.mineCount').text(difficulty.mines);
+  });
+}
+
+function mouseDownHandler (event, game, row , col) {
+  if(event.buttons == 1) // left-click
+  {
+    game.uncover(row, col);
+    render(game);
+  }
+  else if(event.buttons == 2) // right-click
+  {
+    game.mark(row, col);
+    render(game);
+  }
+};
 
 function render(game) {
   const grid = document.querySelector(".grid");
@@ -123,48 +146,25 @@ function prepare_dom(game) {
     card.className = "card";
     card.setAttribute("data-cardInd", i);
     card.oncontextmenu = function(){return false;}
-    preventLongPressMenu(card);
-
-    let col = Math.floor(i%game.ncols);
-    let row = Math.floor(i/game.ncols);
+    //preventLongPressMenu(card);
 
     card.addEventListener("touchstart", ()=> {
-        _touchTimer = setTimeout(game.mark(row, col), _longTouchDuration);
+        _touchTimer = setTimeout(game.mark(i), _longTouchDuration);
     });
 
     card.addEventListener("touchend", () => {
       if(timer) {
         clearTimeout(timer);
-        game.uncover(row, col);
+        game.uncover(i);
       }
     });
 
     card.addEventListener("mousedown", (event) => {
-      if(event.buttons == 1) // left-click
-      {
-        game.uncover(row, col);
-        render(game);
-      }
-      else if(event.buttons == 2) // right-click
-      {
-        game.mark(row, col);
-        render(game);
-      }
-        
-    });
+        mouseDownHandler(event, game, i);
+      });
     
     $('.grid').append(card);
   }
-
-  $('.menuButton').each(function(index){
-    let difficulty = DIFFICULTIES[index];
-    $(this).text(difficulty.difficulty);
-    $(this).on('click', function(){
-        game.init(difficulty.row, difficulty.col, difficulty.mines);
-        render(game);
-        $('.mineCount').text(difficulty.mines);
-    });
-  });
 }
 
 let MSGame = (function(){
@@ -265,7 +265,9 @@ let MSGame = (function(){
     }
     // uncovers a cell at a given coordinate
     // this is the 'left-click' functionality
-    uncover(row, col) {
+    uncover(i) {
+      let col = Math.floor(i%this.ncols);
+      let row = Math.floor(i/this.ncols);
       console.log("uncover", row, col);
       // if coordinates invalid, refuse this request
       if( ! this.validCoord(row,col)) return false;
@@ -295,7 +297,9 @@ let MSGame = (function(){
     }
     // puts a flag on a cell
     // this is the 'right-click' or 'long-tap' functionality
-    mark(row, col) {
+    mark(i) {
+      let col = Math.floor(i%this.ncols);
+      let row = Math.floor(i/this.ncols);
       console.log("mark", row, col);
       // if coordinates invalid, refuse this request
       if( ! this.validCoord(row,col)) return false;
@@ -352,6 +356,11 @@ function main() {
     let game = new MSGame();
     let defaultDifficulty = DIFFICULTIES[0]; //easy
     game.init(defaultDifficulty.row, defaultDifficulty.col, defaultDifficulty.mines);
+
+    $('.menuButton').each(function(index){
+      menuButtonHandler(this, index, game);
+    });
+
     $('.mineCount').text(defaultDifficulty.mines);
     prepare_dom(game);
     render(game);
