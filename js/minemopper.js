@@ -153,8 +153,8 @@ function prepare_dom(game) {
     });
 
     card.addEventListener("touchend", () => {
-      if(timer) {
-        clearTimeout(timer);
+      if(_touchTimer) {
+        clearTimeout(_touchTimer);
         game.uncover(i);
       }
     });
