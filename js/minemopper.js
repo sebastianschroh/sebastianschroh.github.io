@@ -132,6 +132,7 @@ function render(game) {
             break;
           case '3':
             card.classList.add('threeMine');
+            break;
           case '4':
             card.classList.add('fourMine');
             break;
