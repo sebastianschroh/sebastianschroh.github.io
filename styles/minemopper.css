@@ -145,9 +145,8 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #82B8D9;
+    background:rgb(130,184,217, 0.4);
     z-index: 999;
-    opacity: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,7 +166,7 @@
     padding: 1em;
     padding-left: 4em;
     padding-right: 4em;
-    background-color: #BF0426;
+    background-color: rgb(191,4,38,0.9);
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -178,6 +177,7 @@
   }
   
   #overlayin p {
+    opacity: 1;
     text-align: center;
     font-size: 1em;
   }
